@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Drill Card Editor</title>
+
+        <!-- SVG lib -->
+        <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js"></script>
+
+        <!-- Bootstrap -->
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css">
+        
+
+        <style>
+            body {
+                margin: auto;
+                max-width: 1024px;
+            }
+
+            .ig-holder {
+                display: flex;
+            }
+
+            #div-tag-proc div {
+                width: 48%;
+                margin-right: 10px;
+            }
+
+            #div-info div {
+                width: 15%;
+                margin-right: 5px;
+            }
+
+            .card {
+                margin-bottom: 8px;
+            }
+
+            #div-evolution-content-holder div {
+                width: 50%;
+            }
+
+            #div-sequence-content-holder #div-sequence-text {
+                width: 40%;
+                margin-left: 20px;
+            }
+
+            #div-sequence-content-holder #div-sequence-image {
+                width: 500px;
+            }
+
+            #div-sequence-content-holder #editor {
+                width: 400px;
+                height: 700px; 
+                background-color: whitesmoke;
+            }
+
+        </style>
+
+    </head>
+    <body>
+        <h1 class="display-4">Drill Card</h1>
+
+        <hr>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="igt-theme">Theme</span>
+            <span class="form-control" contenteditable="true" id="theme">General Theme</span>
+        </div>
+
+        <div class="ig-holder" id="div-tag-proc">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="igt-procedure">Procedure</span>
+                <span class="form-control" contenteditable="true"> Default </span>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="igt-procedure"> Tags </span>
+                <span class="form-control" contenteditable="true"> Default </span>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="igt-obj">Technical Objective</span>
+            <span class="form-control" contenteditable="true"> Default </span>
+        </div>
+        
+        <div class="ig-holder" id="div-info">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="igt-procedure"><i class="bi bi-stopwatch"></i></span>
+                <span class="form-control" contenteditable="true"> 5 min </span>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="igt-procedure"> <i class="bi bi-people-fill"></i> </span>
+                <span class="form-control" contenteditable="true"> 12 </span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" data-bs-toggle="collapse" href="#collapse-cont1" role="button" aria-expanded="false" aria-controls="collapse-cont1">Materials</h4>
+              <p class="card-text collapse show" id="collapse-cont1" contenteditable="true"> 1 Trolley </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" data-bs-toggle="collapse" href="#div-sequence-content-holder" role="button" aria-expanded="false" aria-controls="div-sequence-content-holder"> Sequence </h4>
+              <div id="div-sequence-content-holder" class="ig-holder card-text collapse show">
+                <div id="div-sequence-image">
+                    <h5>Plan </h5>
+                    <div id="editor"></div>
+                    <button onclick="setDrawingMode('line')" class="btn btn-secondary">Draw Line</button>
+                    <button onclick="setDrawingMode('player')" class="btn btn-secondary">Draw Player</button>
+                    <button onclick="setDrawingMode('ball')" class="btn btn-secondary">Draw Ball</button>
+                    <button onclick="setDrawingMode('coach')" class="btn btn-secondary">Draw Coach</button>
+                    <button onclick="setDrawingMode('eraser')" class="btn btn-secondary">Eraser</button>
+                </div>
+                <div id="div-sequence-text">
+                    <h5> Description </h5>
+                    <p contenteditable="true"> Description of the drill sequence. </p>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" data-bs-toggle="collapse" href="#div-evolution-content-holder" role="button" aria-expanded="false" aria-controls="div-evolution-content-holder"> Evolutions </h4>
+              <div id="div-evolution-content-holder" class="ig-holder card-text collapse show">
+                <div>
+                    <h5>Evolution - </h5>
+                    <p contenteditable="true"> Possible progress </p>
+                </div>
+                <div>
+                    <h5>Evolution + </h5>
+                    <p contenteditable="true"> Possible simplifications </p>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" data-bs-toggle="collapse" href="#collapse-cont4" role="button" aria-expanded="false" aria-controls="collapse-cont4"> Realisation Criteria </h4>
+              <p class="card-text collapse show" id="collapse-cont4" contenteditable="true"> Definition of correctly performed drill. </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" data-bs-toggle="collapse" href="#collapse-cont5" role="button" aria-expanded="false" aria-controls="collapse-cont5"> Success Criteria </h4>
+              <p class="card-text collapse show" id="collapse-cont5" contenteditable="true"> Success goal for the player. </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" data-bs-toggle="collapse" href="#collapse-cont6" role="button" aria-expanded="false" aria-controls="collapse-cont6"> Why it works ? </h4>
+              <p class="card-text collapse show" id="collapse-cont6" contenteditable="true"> Intentions of the drill creators. </p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" data-bs-toggle="collapse" href="#collapse-cont7" role="button" aria-expanded="false" aria-controls="collapse-cont7"> Notes </h4>
+              <p class="card-text collapse" id="collapse-cont7" contenteditable="true"> General notes. </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <button class="btn btn-secondary" onclick="download()"> Export </button>
+        </div>
+        
+
+        <script>
+            function download() {
+                var title = document.getElementById("theme").innerText.replace(/[^a-zA-Z0-9]/g,'_');
+                var text = document.documentElement.innerHTML;
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+                element.setAttribute('download', 'drillcard_'+title+'.html');
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }
+        </script>
+
+
+        <!-- Drawing stuffs -->
+        <script>
+            // Initialize SVG.js
+            var svgElement = document.querySelector('#editor svg');
+            var init_needed = false;
+            if (svgElement) {
+                var draw = SVG.adopt(svgElement);
+            } else {
+                var draw = SVG().addTo('#editor').size(400, 700);
+                init_needed = true;
+            }
+          
+            // Variables for drawing mode
+            var drawingMode = 'line'; // Default mode is line
+          
+            // Variables for drawing elements
+            var isDrawing = false;
+            var startX, startY, endX, endY;
+            var currentElement;
+          
+            // Variable for the eraser mode
+            var eraserMode = false;
+          
+            // Event listener for mouse down to start drawing
+            draw.on('mousedown', function (event) {
+              if (drawingMode === 'eraser') {
+                startErasing(event);
+              } else {
+                startDrawing(event);
+              }
+            });
+          
+            // Event listener for mouse move to update drawing
+            draw.on('mousemove', function (event) {
+              if (isDrawing && (drawingMode === 'line' || drawingMode === 'player' || drawingMode === 'ball' || drawingMode === 'coach')) {
+                updateDrawing(event);
+              }
+            });
+          
+            // Event listener for mouse up to finish drawing
+            draw.on('mouseup', function () {
+              if (isDrawing) {
+                finishDrawing();
+              }
+            });
+
+            // Initial drawing
+            function drawField() {
+                r = draw.rect(300, 300).move(50, 50).fill('#ffdea1').stroke({ width: 2, color: '#000' });
+                r.node.classList.add('svg-bg-field');
+                r = draw.rect(300, 300).move(50, 350).fill('#ffdea1').stroke({ width: 2, color: '#000' });
+                r.node.classList.add('svg-bg-field');
+
+                l = draw.line(25, 350, 375, 350).stroke({ width: 3, color: '#000' });
+                l.node.classList.add('svg-bg-field');
+
+                l = draw.line(50, 250, 350, 250).stroke({ width: 2, color: '#000' });
+                l.node.classList.add('svg-bg-field');
+                l = draw.line(50, 450, 350, 450).stroke({ width: 2, color: '#000' });
+                l.node.classList.add('svg-bg-field');
+            }
+
+            if(init_needed) {
+                drawField()
+            }            
+          
+            // Function to start drawing or erasing
+            function startDrawing(event) {
+              isDrawing = true;
+              var rect = draw.node.getBoundingClientRect();
+              startX = event.clientX - rect.left;
+              startY = event.clientY - rect.top;
+          
+              // Create a different element based on the drawing mode
+              switch (drawingMode) {
+                case 'line':
+                  currentElement = draw.line(startX, startY, startX, startY).stroke({ width: 2, color: '#000' });
+                  break;
+                case 'player':
+                  currentElement = drawPlayer(startX, startY);
+                  break;
+                case 'ball':
+                  currentElement = drawBall(startX, startY);
+                  break;
+                case 'coach':
+                  currentElement = drawCoach(startX, startY);
+                  break;
+              }
+            }
+          
+            // Function to update drawing during mouse move
+            function updateDrawing(event) {
+              var rect = draw.node.getBoundingClientRect();
+              endX = event.clientX - rect.left;
+              endY = event.clientY - rect.top;
+          
+              // Update the position or rotation based on the drawing mode
+              switch (drawingMode) {
+                case 'line':
+                  currentElement.plot(startX, startY, endX, endY);
+                  break;
+                case 'player':
+                  var angle = Math.atan2(endY - startY, endX - startX) * (180 / Math.PI);
+                  currentElement.transform({ rotate: angle, cx: startX, cy: startY });
+                  break;
+                case 'ball':
+                  currentElement.move(endX - 7.5, endY - 7.5);
+                  break;
+                case 'coach':
+                  currentElement.move(endX - 10, endY - 15);
+                  break;
+              }
+            }
+          
+            // Function to finish drawing
+            function finishDrawing() {
+              isDrawing = false;
+              currentElement = null;
+            }
+          
+            // Function to start erasing
+            function startErasing(event) {
+              eraserMode = true;
+              eraseElement(event);
+            }
+          
+            // Function to erase elements
+            function eraseElement(event) {
+              if (eraserMode) {
+                // Get the element under the mouse position
+                var element = document.elementFromPoint(event.clientX, event.clientY);
+          
+                // Check if the element is a drawable element (not the SVG container)
+                if (element !== draw.node && !(element.classList.contains('svg-bg-field'))) {
+                  element.remove();
+                }
+              }
+            }
+          
+            // Function to stop erasing
+            function stopErasing() {
+              eraserMode = false;
+            }
+          
+            // Function to draw a player icon
+            function drawPlayer(posX, posY) {
+              var playerGroup = draw.group();
+              
+              // Body
+              var body = playerGroup.circle(20).fill('#3366cc').move(posX - 10, posY - 10);
+              
+              // Arms
+              var leftArm = playerGroup.rect(10, 2).fill('#3366cc').move(posX - 12, posY - 8);
+              var rightArm = playerGroup.rect(10, 2).fill('#3366cc').move(posX + 2, posY - 8);
+          
+              return playerGroup;
+            }
+          
+            // Function to draw a ball icon
+            function drawBall(posX, posY) {
+              var ball = draw.circle(15).fill('#ff9900').move(posX - 7.5, posY - 7.5);
+              return ball;
+            }
+          
+            // Function to draw a coach icon
+            function drawCoach(posX, posY) {
+              var coach = draw.rect(20, 30).fill('#33cc33').move(posX - 10, posY - 15);
+              return coach;
+            }
+          
+            // Function to set the drawing mode
+            function setDrawingMode(mode) {
+              drawingMode = mode;
+              // Disable eraser mode when changing drawing mode
+              eraserMode = false;
+            }
+          
+            // Export SVG function
+            function exportSVG() {
+              var svgContent = draw.svg();
+          
+              // Create a Blob from the SVG content
+              var blob = new Blob([svgContent], { type: 'image/svg+xml' });
+          
+              // Create a download link
+              var link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              link.download = 'drawing.svg';
+          
+              // Append the link to the document
+              document.body.appendChild(link);
+          
+              // Trigger a click on the link to start the download
+              link.click();
+          
+              // Remove the link from the document
+              document.body.removeChild(link);
+            }
+        </script>
+
+    </body>
+</html>
